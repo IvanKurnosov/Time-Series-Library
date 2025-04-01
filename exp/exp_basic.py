@@ -47,6 +47,7 @@ class Exp_Basic(object):
 
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
+        print(f'Model is instantiated. Number of parameters: {sum(p.numel() for p in self.model.parameters())}')
 
     def _build_model(self):
         raise NotImplementedError

@@ -2,7 +2,6 @@
 
 model_name=TimeMixer
 
-seq_len=96
 e_layers=3
 down_sampling_layers=3
 down_sampling_window=2
@@ -42,6 +41,36 @@ python -u run.py \
   --down_sampling_layers $down_sampling_layers \
   --down_sampling_method avg \
   --down_sampling_window $down_sampling_window
+
+python -u run.py \
+  --task_name long_term_forecast \
+  --is_training 1 \
+  --root_path ./dataset/weather/ \
+  --data_path weather.csv \
+  --model_id weather_360_0_60 \
+  --model TimeMixer \
+  --data custom \
+  --features M \
+  --seq_len 360 \
+  --label_len 0 \
+  --pred_len 60 \
+  --e_layers 3 \
+  --d_layers 1 \
+  --factor 3 \
+  --enc_in 21 \
+  --dec_in 21 \
+  --c_out 21 \
+  --des 'Exp' \
+  --itr 1 \
+  --d_model 16 \
+  --d_ff 32 \
+  --batch_size 64 \
+  --learning_rate 0.01 \
+  --train_epochs 10 \
+  --patience 3 \
+  --down_sampling_layers 3 \
+  --down_sampling_method avg \
+  --down_sampling_window 2
 
 python -u run.py \
   --task_name long_term_forecast \
