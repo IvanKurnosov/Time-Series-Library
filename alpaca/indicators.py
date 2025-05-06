@@ -174,3 +174,16 @@ class FRL:
 
         # Calculate Fibonacci levels
         return swing_low + (swing_high - swing_low) * self.fib_ratio
+
+
+class Vol:
+    def __init__(self,
+                 period,
+                 close_feature='close'):
+        self.period = period
+        self.close_feature = close_feature
+
+    def __call__(self, df):
+        prev_close = df[self.close_feature].shift(1)
+        vol = abs(df[self.close_feature] - prev_close) / df[self.close_feature]
+        return vol.ewm(span=self.period, adjust=False).mean().fillna(0)

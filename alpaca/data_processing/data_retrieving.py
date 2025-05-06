@@ -1,4 +1,4 @@
-from constants import *
+from alpaca.constants import *
 
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest

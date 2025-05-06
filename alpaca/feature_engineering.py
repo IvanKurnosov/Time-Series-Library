@@ -2,10 +2,14 @@ from indicators import *
 from constants import *
 
 import json
+import time
 
 
-def prepare_data_for_tsl_indicators(data, symbol, mode="train", transformations_path='data/transformations/tsl_transformations_{0}.json'):
-    if mode != 'train':
+def prepare_data_for_tsl_indicators(data, symbol, mode="train", transformations_path='data_processing/data/transformations/tsl_transformations_{0}.json', transformations=None, verbose=False):
+    start_time = time.time()
+
+    if mode != 'train' and not transformations:
+        print('Reading transformations...')
         with open(transformations_path.format(symbol), 'r') as file:
             transformations = json.load(file)
 
@@ -48,13 +52,25 @@ def prepare_data_for_tsl_indicators(data, symbol, mode="train", transformations_
         return_mean = transformations['return']['mean']
         return_std = transformations['return']['std']
 
+    if verbose:
+        print(f'Transformations initialization took {time.time() - start_time}')
+        start_time = time.time()
+
     for indicator_name, indicator_transformation in return_based_indicators.items():
         indicator_value = indicator_transformation(features)
         features[indicator_name] = (indicator_value - return_mean) / return_std
     features['return'] = (features['return'] - return_mean) / return_std
 
+    if verbose:
+        print(f'Return based indicators calculation took {time.time() - start_time}')
+        start_time = time.time()
+
     for indicator_name, indicator_transformation in zero_to_hundred_indicators.items():
         features[indicator_name] = indicator_transformation(features) / 100
+
+    if verbose:
+        print(f'Zero to hundred indicators calculation took {time.time() - start_time}')
+        start_time = time.time()
 
     if mode == 'train':
         volume_mean = features['volume'].mean()
@@ -82,4 +98,8 @@ def prepare_data_for_tsl_indicators(data, symbol, mode="train", transformations_
     numerical_feature_names = ['return', 'volume'] + list((return_based_indicators | zero_to_hundred_indicators).keys())
     features = features[[TSLDatasetConstants.DATETIME_COLUMN_NAME] + numerical_feature_names]
     features.loc[:, numerical_feature_names] = features.loc[:, numerical_feature_names].astype(np.float32)
-    return features.reset_index(drop=True)
+
+    if verbose:
+        print(f'Post processing took {time.time() - start_time}')
+
+    return features.fillna(0).reset_index(drop=True)

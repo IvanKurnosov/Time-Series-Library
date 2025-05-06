@@ -5,8 +5,8 @@ class TSLDatasetConstants:
     DATETIME_COLUMN_NAME = 'date'
 
 
-REGULAR_TRADING_HOURS_START = pd.to_datetime("09:30:00").time()
-REGULAR_TRADING_HOURS_END = pd.to_datetime("16:00:00").time()
+REGULAR_TRADING_HOURS_START = pd.to_datetime("14:30:00").time()
+REGULAR_TRADING_HOURS_END = pd.to_datetime("21:00:00").time()
 
 SNP500_STOCKS = [
     "MMM", "AOS", "ABT", "ABBV", "ACN", "ADBE", "AMD", "AES", "AFL", "A",
@@ -60,4 +60,20 @@ SNP500_STOCKS = [
     "WRB", "GWW", "WAB", "WBA", "WMT", "DIS", "WBD", "WM", "WAT", "WEC",
     "WFC", "WELL", "WST", "WDC", "WY", "WSM", "WMB", "WTW", "WDAY", "WYNN",
     "XEL", "XYL", "YUM", "ZBRA", "ZBH", "ZTS"
+]
+
+SNP500_STOCKS_SELECTED = [
+    'AMD', 'AES', 'ABNB', 'GOOGL', 'GOOG', 'MO', 'AMZN', 'AMCR', 'APH', 'ADI', 'APA',
+    'APO', 'AAPL', 'APTV', 'ADM', 'ANET', 'T', 'BKR', 'BALL', 'BAC', 'BX', 'BA',
+    'BSX', 'BMY', 'AVGO', 'CPB', 'CCL', 'CARR', 'CNC', 'CNP', 'SCHW', 'CVX', 'CMG',
+    'CSCO', 'CFG', 'KO', 'CL', 'CMCSA', 'COP', 'CEG', 'CSX', 'CVS', 'DHR', 'DECK',
+    'DELL', 'DAL', 'DVN', 'D', 'DOW', 'EBAY', 'EIX', 'EA', 'ENPH', 'EQT', 'EQR',
+    'EL', 'XOM', 'FITB', 'F', 'FTNT', 'FOXA', 'BEN', 'GE', 'GEN', 'GIS', 'GM',
+    'GILD', 'HAL', 'DOC', 'HPE', 'HST', 'HPQ', 'HBAN', 'IBM', 'INTC', 'JNJ', 'JPM',
+    'KDP', 'KEY', 'KMI', 'KKR', 'KHC', 'KR', 'LRCX', 'LEN', 'MPC', 'MTCH', 'MDT',
+    'META', 'MET', 'MCHP', 'MU', 'MSFT', 'MRNA', 'MDLZ', 'MNST', 'NDAQ', 'NFLX',
+    'NEM', 'NEE', 'NKE', 'NCLH', 'NVDA', 'OXY', 'ON', 'OKE', 'PLTR', 'PANW', 'PYPL',
+    'PEP', 'PFE', 'PCG', 'PM', 'PPL', 'PG', 'QCOM', 'O', 'CRM', 'SLB', 'LUV',
+    'SBUX', 'SMCI', 'SYF', 'SYY', 'TGT', 'TSLA', 'TXN', 'TJX', 'TSCO', 'USB',
+    'UBER', 'UAL', 'VZ', 'VTRS', 'V', 'VST', 'WBA', 'WMT', 'DIS', 'WBD', 'WDC', 'WMB'
 ]
